@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- link raleway google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            /* background-color: red; */
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            padding: 0.5rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 50vw;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 2em;
+            height: 80vh;
+            overflow: auto;
+            background-color: #fff;
+            /* align-items: center; */
+        }
+        /* persistent scrollbar */
+        form::-webkit-scrollbar, #output::-webkit-scrollbar, .code_wrapper::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        form::-webkit-scrollbar-track, #output::-webkit-scrollbar-track, .code_wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        form::-webkit-scrollbar-thumb, #output::-webkit-scrollbar-thumb, .code_wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        form::-webkit-scrollbar-thumb:hover, #output::-webkit-scrollbar-thumb:hover, .code_wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        input {
+            margin-bottom: 1rem;
+            background-color: #fafafa;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            padding: 0.5rem;
+            width: 80%;
+        }
+        label {
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            /* text-align: left; */
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #output {
+            background-color: #212529;
+            width: 50vw;
+            height: 80vh;
+            padding: 2em;
+            color: #fff;
+            overflow: auto;
+        }
+        input[type="submit"] {
+            background-color: #212529;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem;
+            width: 80%;
+            cursor: pointer;
+
+            position: sticky;
+            bottom: 0;
+            left: 12%;
+        }
+        pre {
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.5;
+            padding: 0.5rem;
+            background-color: #fafafa;
+            color: #212529;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            width: 100%;
+            overflow: auto;
+        }
+        .code_wrapper {
+            /* padding: 0.5rem; */
+            /* background-color: #fafafa; */
+            /* color: #212529;
+            padding: 0.5rem; */
+            /* border: 1px solid #eaeaea; */
+            /* border-radius: 4px; */
+            /* width: 100%;
+            background-color: yellow; */
+
+
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.5;
+            padding: 0.5rem;
+            background-color: #fafafa;
+            color: #212529;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            width: 100%;
+            overflow: auto;
+        }
+        .copy-button {
+            /* position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #212529 !important; */
+            /* border: none; */
+        }
+        /* copy to clipboard button */
+        .code_wrapper button {
+            border: none;
+            cursor: pointer;
+            /* matte background */
+            /* background-color: #fafafa; */
+            border-radius: 4px;
+            position: relative;
+            top: 0;
+            right: 0;
+            background-color: yellow;
+        }
+        #embed_preview {
+            height: 100vh;
+        }
+        #output_link_preview {
+            color: #fff;
+        }
+        /* .ureka-review-collection-button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem;
+            width: 120px;
+            cursor: pointer;
+        }
+        .ureka-review-collection-button a  {
+            color: #fff;
+        } */
+    </style>
+</head>
+<body>
+    <h1>Generate Reviews Collection Form</h1>
+    <div class="container">
+        <!-- Input url_template fields -->
+        <form id="generateLinkForm">
+            <label for="url_template">Submission Email <small>(Reviews submitted are sent to this email)</small></label>
+            <input type="text" name="submission_email" id="submission_email" placeholder="Enter Submission Email" required>
+            <br />
+            <label for="website_name">Website/Project Name</label>
+            <input type="text" name="website_name" id="website_name" placeholder="Enter Website Name" required>
+            <br />
+            <label for="website_url">Website URL</label>
+            <input type="text" name="website_url" id="website_url" placeholder="Enter Website URL" required>
+            <br />
+            <label for="website_desc">Website Description</label>
+            <input type="text" name="website_desc" id="website_desc" placeholder="Enter Website Description" required>
+            <br />
+            <label for="website_logo">Website Logo</label>
+            <input type="text" name="website_logo" id="website_logo" placeholder="Enter Website Logo URL" required>
+            <br />
+            <label for="product_name">Product Name <small>(OPTIONAL)</small></label>
+            <input type="text" name="product_name" id="product_name" placeholder="Enter Product Name">
+            <br />
+            <label for="product_url">Product URL <small>(OPTIONAL)</small></label>
+            <input type="text" name="product_url" id="product_url" placeholder="Enter Product URL">
+            <br />
+            <label for="product_desc">Product Description <small>(OPTIONAL)</small></label>
+            <input type="text" name="product_desc" id="product_desc" placeholder="Enter Product Description">
+            <br />
+            <label for="product_logo">Product Logo/IMAGE <small>(OPTIONAL)</small></label>
+            <input type="text" name="product_image" id="product_image" placeholder="Enter Product Image URL">
+            <br />
+            <div>
+                
+            </div>
+            <input type="submit" value="Generate">
+        </form>
+
+        <!-- Output generated link -->
+        <div id="output">
+            <h1>Output</h1>
+            <div id="output_link">
+                <h2>Direct Form Link</h2>
+                <h3>Code</h3>
+                <div class="code_wrapper">
+                    <!-- copy to clipbboard -->
+                    <button class="copy_button">
+                        <!-- copy to clipboard icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12px" height="12px" viewBox="0 0 52 52"
+                            enable-background="new 0 0 52 52" xml:space="preserve">
+                            <g>
+                                <path
+                                    d="M17.4,11.6h17.3c0.9,0,1.6-0.7,1.6-1.6V6.8c0-2.6-2.1-4.8-4.7-4.8h-11c-2.6,0-4.7,2.2-4.7,4.8V10   C15.8,10.9,16.5,11.6,17.4,11.6z" />
+                                <path
+                                    d="M43.3,6h-1.6c-0.5,0-0.8,0.3-0.8,0.8V10c0,3.5-2.8,6.4-6.3,6.4H17.4c-3.5,0-6.3-2.9-6.3-6.4V6.8   c0-0.5-0.3-0.8-0.8-0.8H8.7C6.1,6,4,8.2,4,10.8v34.4C4,47.8,6.1,50,8.7,50h34.6c2.6,0,4.7-2.2,4.7-4.8V10.8C48,8.2,45.9,6,43.3,6z" />
+                            </g>
+                        </svg>
+                        Copy
+                    </button>
+                    <code id="output_link_code">
+                        Fill the details to generate the form link
+                    </code>
+                </div>
+                <h3>Preview</h3>
+                <a id="output_link_preview" href="javascipt:void(0)" target="_blank">Preview Link</a>
+            </div>
+
+            
+            <div id="button_widget">
+                <h2>Embed Button Widget</h2>
+                <h3>Code</h3>
+                <div class="code_wrapper">
+                    <!-- copy to clipbboard -->
+                    <button class="copy_button">
+                        <!-- copy to clipboard icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12px" height="12px" viewBox="0 0 52 52"
+                            enable-background="new 0 0 52 52" xml:space="preserve">
+                            <g>
+                                <path
+                                    d="M17.4,11.6h17.3c0.9,0,1.6-0.7,1.6-1.6V6.8c0-2.6-2.1-4.8-4.7-4.8h-11c-2.6,0-4.7,2.2-4.7,4.8V10   C15.8,10.9,16.5,11.6,17.4,11.6z" />
+                                <path
+                                    d="M43.3,6h-1.6c-0.5,0-0.8,0.3-0.8,0.8V10c0,3.5-2.8,6.4-6.3,6.4H17.4c-3.5,0-6.3-2.9-6.3-6.4V6.8   c0-0.5-0.3-0.8-0.8-0.8H8.7C6.1,6,4,8.2,4,10.8v34.4C4,47.8,6.1,50,8.7,50h34.6c2.6,0,4.7-2.2,4.7-4.8V10.8C48,8.2,45.9,6,43.3,6z" />
+                            </g>
+                        </svg>
+                        Copy
+                    </button>
+                    <code id="button_code">
+                        Fill the details to generate the button embed code
+                    </code>
+                </div>
+                <h3>Preview</h3>
+                <div id="button_preview">
+                </div>
+            </div>
+
+            <div id="embed">
+                <h2>Embed Form Widget</h2>
+                <h3>Code</h3>
+                <div class="code_wrapper">
+                    <!-- copy to clipbboard -->
+                    <button class="copy_button">
+                        <!-- copy to clipboard icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12px" height="12px" viewBox="0 0 52 52"
+                        enable-background="new 0 0 52 52" xml:space="preserve">
+                        <g>
+                            <path
+                            d="M17.4,11.6h17.3c0.9,0,1.6-0.7,1.6-1.6V6.8c0-2.6-2.1-4.8-4.7-4.8h-11c-2.6,0-4.7,2.2-4.7,4.8V10   C15.8,10.9,16.5,11.6,17.4,11.6z" />
+                            <path
+                            d="M43.3,6h-1.6c-0.5,0-0.8,0.3-0.8,0.8V10c0,3.5-2.8,6.4-6.3,6.4H17.4c-3.5,0-6.3-2.9-6.3-6.4V6.8   c0-0.5-0.3-0.8-0.8-0.8H8.7C6.1,6,4,8.2,4,10.8v34.4C4,47.8,6.1,50,8.7,50h34.6c2.6,0,4.7-2.2,4.7-4.8V10.8C48,8.2,45.9,6,43.3,6z" />
+                        </g>
+                    </svg>
+                    Copy
+                </button>
+                <code id="embed_code">
+                    Fill the details to generate the form embed code
+                </code>
+                </div>
+                <h3>Preview</h3>
+                <div id="embed_preview">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const output_link_code = document.getElementById('output_link_code');
+        const output_link_preview = document.getElementById('output_link_preview');
+        const embed_code = document.getElementById('embed_code');
+        const embed_preview = document.getElementById('embed_preview');
+        const button_code = document.getElementById('button_code');
+        const button_preview = document.getElementById('button_preview');
+
+        function generateLinkFromTemplate(websiteName, websiteUrl, websiteDesc, websiteLogo, productName, productDesc, productImage, productUrl, submissionEmail) {
+            const url_template = `https://ureka-reviews.netlify.app/?website_name=${websiteName}&website_url=${websiteUrl}&submission=${submissionEmail}&website_desc=${websiteDesc}&website_logo=${websiteLogo}&product_name=${productName}&product_desc=${productDesc}&product_image=${productImage}&product_url=${productUrl}`
+            return url_template
+        }
+
+        document.getElementById('generateLinkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const websiteName = document.getElementById('website_name').value;
+            const websiteUrl = document.getElementById('website_url').value;
+            const submission = document.getElementById('submission_email').value;
+            const websiteDesc = document.getElementById('website_desc').value;
+            const websiteLogo = document.getElementById('website_logo').value;
+            const productName = document.getElementById('product_name').value;
+            const productDesc = document.getElementById('product_desc').value;
+            const productImage = document.getElementById('product_image').value;
+            const productUrl = document.getElementById('product_url').value;
+            const submissionEmail = document.getElementById('submission_email').value;
+
+            const reviewsCollectorFormLink = generateLinkFromTemplate(websiteName, websiteUrl, websiteDesc, websiteLogo, productName, productDesc, productImage, productUrl, submissionEmail);
+            output_link_code.innerHTML = reviewsCollectorFormLink;
+            output_link_preview.href = reviewsCollectorFormLink;
+            embed_code.innerText = `<iframe src="${reviewsCollectorFormLink}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`;
+            embed_preview.innerHTML = `<iframe src="${reviewsCollectorFormLink}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`;
+            button_code.innerText = `<button style='background-color: green;color: #fff;border: none;border-radius: 4px;padding: 0.5rem;width: 120px;cursor: pointer;'><a href="${reviewsCollectorFormLink}" style='color: #fff;'>Leave a Review</a></button>`;
+            button_preview.innerHTML = `<button style='background-color: green;color: #fff;border: none;border-radius: 4px;padding: 0.5rem;width: 120px;cursor: pointer;'><a href="${reviewsCollectorFormLink}" style='color: #fff;'>Leave a Review</a></button>`;
+        });
+        
+        // output.innerHTML = `<a href="${url_template}">${url_template}</a>`;
+
+        // copy to clipboard
+        const copy_button = document.querySelectorAll('.copy_button');
+        copy_button.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log(e.target.parentElement.children[0].innerText);
+                const code = e.target.parentElement.children[0].innerText;
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                textarea.remove();
+
+                e.target.innerText = 'Copied!';
+                e.target.style.backgroundColor = '#00ff00';
+                setTimeout(function() {
+                    e.target.innerHTML = `
+                        <!-- copy to clipboard icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12px" height="12px" viewBox="0 0 52 52"
+                            enable-background="new 0 0 52 52" xml:space="preserve">
+                            <g>
+                                <path
+                                    d="M17.4,11.6h17.3c0.9,0,1.6-0.7,1.6-1.6V6.8c0-2.6-2.1-4.8-4.7-4.8h-11c-2.6,0-4.7,2.2-4.7,4.8V10   C15.8,10.9,16.5,11.6,17.4,11.6z" />
+                                <path
+                                    d="M43.3,6h-1.6c-0.5,0-0.8,0.3-0.8,0.8V10c0,3.5-2.8,6.4-6.3,6.4H17.4c-3.5,0-6.3-2.9-6.3-6.4V6.8   c0-0.5-0.3-0.8-0.8-0.8H8.7C6.1,6,4,8.2,4,10.8v34.4C4,47.8,6.1,50,8.7,50h34.6c2.6,0,4.7-2.2,4.7-4.8V10.8C48,8.2,45.9,6,43.3,6z" />
+                            </g>
+                        </svg>
+                        Copy`;
+                    e.target.style.backgroundColor = 'yellow';
+                }, 2000);
+            });
+        });
+
+
+    </script>
+</body>
+</html>
