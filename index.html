@@ -337,8 +337,8 @@
         copy_button.forEach(function(button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                console.log(e.target.parentElement.children[0].innerText);
-                const code = e.target.parentElement.children[0].innerText;
+                console.log(e.target.parentElement.children[1].innerText);
+                const code = e.target.parentElement.children[1].innerText;
                 const textarea = document.createElement('textarea');
                 textarea.value = code;
                 document.body.appendChild(textarea);
